@@ -35,7 +35,7 @@ app = FastAPI(lifespan=lifespan, debug=DEBUG)
 
 @app.get("/api/lists")
 async def get_all_lists() -> list[ListSummary]:
-    return [i async for i in app.state.todo_dal.list_todo_lists()]
+    return [i async for i in app.state.todo_dal.list_lists()]
 
 
 class NewList(BaseModel):
@@ -50,7 +50,7 @@ class NewListResponse(BaseModel):
 @app.post("/api/lists", status_code=status.HTTP_201_CREATED)
 async def create_todo_list(new_list: NewList) -> NewListResponse:
     return NewListResponse(
-        id=await app.state.todo_dal.create_todo_list(new_list.name),
+        id=await app.state.todo_dal.create_list(new_list.name),
         name=new_list.name,
     )
 
@@ -58,12 +58,12 @@ async def create_todo_list(new_list: NewList) -> NewListResponse:
 @app.get("/api/lists/{list_id}")
 async def get_list(list_id: str) -> List:
     """Get a single to-do list"""
-    return await app.state.todo_dal.get_todo_list(list_id)
+    return await app.state.todo_dal.get_list(list_id)
 
 
 @app.delete("/api/lists/{list_id}")
 async def delete_list(list_id: str) -> bool:
-    return await app.state.todo_dal.delete_todo_list(list_id)
+    return await app.state.todo_dal.delete_list(list_id)
 
 
 class NewItem(BaseModel):

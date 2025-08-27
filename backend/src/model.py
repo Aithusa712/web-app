@@ -27,7 +27,7 @@ class ListItem(BaseModel):
     def from_doc(item) -> "ListItem":
         return ListItem(
                 id=item["id"],
-                label=item["name"],
+                label=item["label"],
                 checked=item["checked"],
                 )
 
