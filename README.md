@@ -33,7 +33,7 @@
 
 
 ## Docker
-- Docker runs 4 containers (1 out of the 4 of the containers is optional).
+- Docker runs 4 containers (1 out of the 4 containers is optional).
   - frontend: contains node.js
   - backend: our backend API server, a python script in "/backend/src/server.py".
   - nginx: reverse proxy, to forward http client request to the backend container. 
