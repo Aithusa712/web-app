@@ -1,0 +1,13 @@
+.ShowList .summary {
+  border: 1px solid lightgray;
+  padding: 1em;
+  margin: 1em;
+  cursor: pointer;
+  display: flex;
+}
+
+.ShowList .count {
+  padding-left: 1ex;
+  color: blueviolet;
+  font-size: 92%;
+}
