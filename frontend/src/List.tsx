@@ -3,9 +3,26 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { BiSolidTrash } from "react-icons/bi";
 
-function List({ listId, handleBackButton }) {
-  let labelRef = useRef();
-  const [listData, setListData] = useState(null);
+type Item = {
+  id: string;
+  label: string;
+  checked: boolean;
+};
+
+type ListProps = {
+  listId: string;
+  handleBackButton: () => void;
+}
+
+type ListData = {
+  id: string;
+  name: string;
+  items:Item[];
+}
+
+function List({ listId, handleBackButton }: ListProps) {
+  let inputRef = useRef<HTMLInputElement | null> (null);
+  const [listData, setListData] = useState<ListData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,8 +33,9 @@ function List({ listId, handleBackButton }) {
     fetchData();
   }, [listId]);
 
-  function handleCreateItem(label) {
+  function handleCreateItem(label: string) {
     const updateData = async () => {
+      if (!listData) return;
       const response = await axios.post(`/api/lists/${listData.id}/items/`, {
         label: label,
       });
@@ -26,8 +44,9 @@ function List({ listId, handleBackButton }) {
     updateData();
   }
 
-  function handleDeleteItem(id) {
+  function handleDeleteItem(id: string) {
     const updateData = async () => {
+      if (!listData) return;
       const response = await axios.delete(
         `/api/lists/${listData.id}/items/${id}`
       );
@@ -36,8 +55,9 @@ function List({ listId, handleBackButton }) {
     updateData();
   }
 
-  function handleCheckToggle(itemId, newState) {
+  function handleCheckToggle(itemId: string, newState: boolean) {
     const updateData = async () => {
+      if (!listData) return;
       const response = await axios.patch(
         `/api/lists/${listData.id}/checked_state`,
         {
@@ -69,12 +89,13 @@ function List({ listId, handleBackButton }) {
       <div className="box">
         <label>
           New Item:&nbsp;
-          <input id={labelRef} type="text" />
+          <input ref={inputRef} type="text" />
         </label>
         <button
-          onClick={() =>
-            handleCreateItem(document.getElementById(labelRef).value)
-          }
+          onClick={() =>{
+            const val = inputRef.current?.value ?? "";
+            handleCreateItem(val)
+          }}
         >
           New
         </button>
@@ -110,3 +131,4 @@ function List({ listId, handleBackButton }) {
 }
 
 export default List;
+

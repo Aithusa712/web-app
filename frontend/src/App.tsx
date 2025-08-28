@@ -5,11 +5,19 @@ import ShowLists from "./ShowList";
 import List from "./List";
 
 function App() {
-  const [listSummaries, setListSummaries] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
 
+  type Summary = { id: string; name: string; item_count: number };
+
+
+  const [listSummaries, setListSummaries] = useState<Summary[] | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   reloadData().catch(console.error);
+  // }, []);
+  //
   useEffect(() => {
-    reloadData().catch(console.error);
+    reloadData();
   }, []);
 
   async function reloadData() {
@@ -18,7 +26,7 @@ function App() {
     setListSummaries(data);
   }
 
-  function handleNewList(newName) {
+  function handleNewList(newName: string) {
     const updateData = async () => {
       const newListData = {
         name: newName,
@@ -30,7 +38,7 @@ function App() {
     updateData();
   }
 
-  function handleDeleteList(id) {
+  function handleDeleteList(id: string) {
     const updateData = async () => {
       await axios.delete(`/api/lists/${id}`);
       reloadData().catch(console.error);
@@ -38,7 +46,7 @@ function App() {
     updateData();
   }
 
-  function handleSelectList(id) {
+  function handleSelectList(id: string) {
     console.log("Selecting item", id);
     setSelectedItem(id);
   }
@@ -51,6 +59,7 @@ function App() {
   if (selectedItem === null) {
     return (
       <div className="App">
+        <h1>hello</h1>
         <ShowLists
           listSummaries={listSummaries}
           handleSelectList={handleSelectList}
@@ -62,6 +71,7 @@ function App() {
   } else {
     return (
       <div className="App">
+        <h1>hello</h1>
         <List listId={selectedItem} handleBackButton={backToList} />
       </div>
     );

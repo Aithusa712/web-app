@@ -15,14 +15,14 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=development
-      - WDS_SOCKET_PORT=0
+      # - WDS_SOCKET_PORT=0
     volumes:
       - ./frontend/:/home/node/app
     expose:
       - "3000"
     ports:
       - "3000:3000"
-    command: sh -c "npm ci && npm start" #npm start 
+    command: npm run dev #sh -c "npm ci && npm start" #npm start 
   backend:
     image: web-app/backend
     build: ./backend
