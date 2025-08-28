@@ -2,6 +2,11 @@
 
 - Choose either a Local Mongodb Database, or Cloud-hosted MongoDB service in the .env file. Remove/Comment the one you dont want inside the ./env file and also in the compose.yaml file (remove/comment the mongo container)
 
+
+# Prerequisites
+- Docker
+- Node.js (if docker is taking too long to install node modules).
+
 # File Structure:
 ```
 ├── backend
@@ -57,3 +62,13 @@
 
 # TODO:
 - idk, dunno the project scope.
+
+
+# Known issues:
+- npm ci/npm install inside the docker contianer is too slow, can take hours
+  to install the node_modules. To avoid this, inside the docker compose yaml 
+  config file, replace the frontend docker container command in line 25 from 
+  `sh -c "npm ci && npm start"` with just `npm start`. And before running the 
+  docker containers, install the node modules beforehand by cd-ing to the 
+  frontend folder and running `npm install`. This requires your OS to have node
+  installed.

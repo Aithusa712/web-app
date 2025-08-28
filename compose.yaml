@@ -22,8 +22,7 @@ services:
       - "3000"
     ports:
       - "3000:3000"
-    command: sh -c "npm ci && npm start"
-
+    command: sh -c "npm ci && npm start" #npm start 
   backend:
     image: web-app/backend
     build: ./backend
