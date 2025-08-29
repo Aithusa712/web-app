@@ -33,7 +33,7 @@
 
 ## Frontend components
 - React - Javascript Library for creating the UI of the app. React components handles states.
-- Axiom - Http client to make requests into our backend api (FastAPI).
+- Axios - Http client to make requests into our backend api (FastAPI).
 - react-icons - just an Icon pack.
 
 
