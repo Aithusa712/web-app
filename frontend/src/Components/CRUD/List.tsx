@@ -76,7 +76,7 @@ function List({ listId, handleBackButton }: ListProps) {
         <button className="back" onClick={handleBackButton}>
           Back
         </button>
-        Loading to-do list ...
+        Loading list ...
       </div>
     );
   }
