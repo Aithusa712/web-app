@@ -74,6 +74,6 @@
   installed. (outdated. After migrating to vite, the command to start the 
   server is `npm run dev`).
 
-- After migrating to vite (from CRA), app does not render anything (even <h1> 
+- After migrating to vite (from CRA), app does not render anything (even `<h1>` 
   tags outside of the App component) if no database is connected. So if you
   open the frontend port (3000) it will not render anything.
